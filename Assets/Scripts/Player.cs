@@ -10,7 +10,9 @@ public class Player : MonoBehaviour
     SpriteRenderer spriteRenderer;
     bool isGrounded;
     [SerializeField]
-    Transform GroundCheck,GroundCheckL,GroundCheckR;
+    Transform GroundCheck,GroundCheckL,GroundCheckR,BulletSpawnPosL,BulletSpawnPosR;
+    public GameObject bulletref;
+    private bool isShooting, FacingLeft;
     public float PlayerSpeed = 1.6f, PlayerJump = 4;
     // Start is called before the first frame update
     void Start()
@@ -32,12 +34,27 @@ public class Player : MonoBehaviour
             isGrounded = false;
             animator.Play("Jump");
         }
+        if(Input.GetKey("f") && isGrounded == true)
+        {
+            animator.Play("Shoot");
+            if (isShooting)
+                return;
+            isShooting = true;
+            GameObject bullet = Instantiate(bulletref);
+            bullet.GetComponent<Bullet>().StartShoot(FacingLeft);
+            if (FacingLeft)
+                bullet.transform.position = BulletSpawnPosL.position;
+            else
+                bullet.transform.position = BulletSpawnPosR.position;
+            Invoke("ResetShoot", 0.5f);
+        }
         if (Input.GetKey("d") || Input.GetKey("right"))
         {
             rb2D.velocity = new Vector2(PlayerSpeed, rb2D.velocity.y);
             if (isGrounded)
                 animator.Play("Run");
             spriteRenderer.flipX = false;
+            FacingLeft = false;
         }
         else if (Input.GetKey("a") || Input.GetKey("left"))
         {
@@ -45,6 +62,7 @@ public class Player : MonoBehaviour
             if (isGrounded)
                 animator.Play("Run");
             spriteRenderer.flipX = true;
+            FacingLeft = true;
         }
         else
         {
@@ -57,5 +75,10 @@ public class Player : MonoBehaviour
             rb2D.velocity = new Vector2(rb2D.velocity.x, PlayerJump);
             animator.Play("Jump");
         }
+    }
+    private void ResetShoot()
+    {
+        isShooting = false;
+        animator.Play("Idle");
     }
 }
