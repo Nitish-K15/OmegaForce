@@ -32,26 +32,19 @@ public class Player : MonoBehaviour
         else
         {
             isGrounded = false;
-            animator.Play("Jump");
         }
-        if(Input.GetKey("f") && isGrounded == true)
+        if(Input.GetKey("f") && isGrounded)
         {
-            animator.Play("Shoot");
-            if (isShooting)
-                return;
-            isShooting = true;
-            GameObject bullet = Instantiate(bulletref);
-            bullet.GetComponent<Bullet>().StartShoot(FacingLeft);
-            if (FacingLeft)
-                bullet.transform.position = BulletSpawnPosL.position;
+            if (rb2D.velocity.x == 0)
+                animator.Play("Shoot");
             else
-                bullet.transform.position = BulletSpawnPosR.position;
-            Invoke("ResetShoot", 0.5f);
+                animator.Play("Run_Shoot");
+               PlayerShoot();
         }
         if (Input.GetKey("d") || Input.GetKey("right"))
         {
             rb2D.velocity = new Vector2(PlayerSpeed, rb2D.velocity.y);
-            if (isGrounded)
+            if (isGrounded && !isShooting)
                 animator.Play("Run");
             spriteRenderer.flipX = false;
             FacingLeft = false;
@@ -59,26 +52,44 @@ public class Player : MonoBehaviour
         else if (Input.GetKey("a") || Input.GetKey("left"))
         {
             rb2D.velocity = new Vector2(-PlayerSpeed, rb2D.velocity.y);
-            if (isGrounded)
+            if (isGrounded && !isShooting)
                 animator.Play("Run");
             spriteRenderer.flipX = true;
             FacingLeft = true;
         }
         else
-        {
-            if (isGrounded)
+        { 
+            if (isGrounded && !isShooting)
                 animator.Play("Idle");
             rb2D.velocity = new Vector2(0, rb2D.velocity.y);
         }
         if (Input.GetKey("space") && isGrounded == true)
         {
             rb2D.velocity = new Vector2(rb2D.velocity.x, PlayerJump);
-            animator.Play("Jump");
+                animator.Play("Jump");
         }
+        if (Input.GetKey("f") && isGrounded == false)
+        {
+            animator.Play("Jump_Shoot");
+            PlayerShoot();
+        }
+    }
+
+    private void PlayerShoot()
+    {
+        if (isShooting)
+            return;
+        isShooting = true;
+        GameObject bullet = Instantiate(bulletref);
+        bullet.GetComponent<Bullet>().StartShoot(FacingLeft);
+        if (FacingLeft)
+            bullet.transform.position = BulletSpawnPosL.position;
+        else
+            bullet.transform.position = BulletSpawnPosR.position;
+        Invoke("ResetShoot", 0.3f);
     }
     private void ResetShoot()
     {
         isShooting = false;
-        animator.Play("Idle");
     }
 }
