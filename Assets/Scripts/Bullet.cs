@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
+    public int Damage, Speed;
+    public float DestroyTime;
     void Start()
     {
-        Invoke("DestroySelf", 1f);  //Destroy Bullet after set time
+        Invoke("DestroySelf", DestroyTime);  //Destroy Bullet after set time
     }
 
     public void StartShoot(bool FacingLeft)
@@ -14,11 +16,11 @@ public class Bullet : MonoBehaviour
         Rigidbody2D rgbd = GetComponent<Rigidbody2D>();
         if (FacingLeft)                                    //Check to spawn bullets in the correct direction
         {
-            rgbd.velocity = new Vector2(-3, 0);
+            rgbd.velocity = new Vector2(-Speed, 0);
         }
         else
         {
-            rgbd.velocity = new Vector2(3, 0);
+            rgbd.velocity = new Vector2(Speed, 0);
         }
     }
     private void DestroySelf()

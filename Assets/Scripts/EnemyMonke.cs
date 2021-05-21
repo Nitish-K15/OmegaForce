@@ -10,18 +10,21 @@ public class EnemyMonke : MonoBehaviour
     private Material matDefault;
     private SpriteRenderer sr;
     private UnityEngine.Object explosionRef;
+    private Animator animator;
     void Start()
     {
         sr = GetComponent<SpriteRenderer>();
         matDefault = sr.material;
         explosionRef = Resources.Load("Explosion");
+        animator = GetComponent<Animator>();
     }
      private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Bullet"))
         {
             Destroy(collision.gameObject);
-            health--;
+            int BulletDamage = collision.GetComponent<Bullet>().Damage;
+            health = health-BulletDamage;
             sr.material = matWhite; 
             if(health <= 0)
             {
@@ -33,7 +36,6 @@ public class EnemyMonke : MonoBehaviour
             }
         }
     }
-
     private void ResetMaterial()
     {
         sr.material = matDefault;
