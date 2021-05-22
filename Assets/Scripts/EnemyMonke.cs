@@ -11,6 +11,7 @@ public class EnemyMonke : MonoBehaviour
     private SpriteRenderer sr;
     private UnityEngine.Object explosionRef;
     private Animator animator;
+
     void Start()
     {
         sr = GetComponent<SpriteRenderer>();
@@ -34,6 +35,17 @@ public class EnemyMonke : MonoBehaviour
             {
                 Invoke("ResetMaterial", 0.1f);
             }
+        }
+    }
+   
+    public void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.tag == "Player")
+        {
+            Player player = collision.gameObject.GetComponent<Player>();
+            player.HitSide(transform.position.x > player.transform.position.x);
+            player.TakingDamage(2);
+            Debug.Log("Contact");
         }
     }
     private void ResetMaterial()

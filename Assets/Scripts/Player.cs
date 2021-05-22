@@ -12,14 +12,18 @@ public class Player : MonoBehaviour
     [SerializeField]
     Transform GroundCheck,GroundCheckL,GroundCheckR,BulletSpawnPosL,BulletSpawnPosR;
     public GameObject bulletref;
-    private bool isShooting, FacingLeft;
+    private bool isShooting, FacingLeft,isInvincible,isTakingDamage;
+    public bool DamageSideRight;
     public float PlayerSpeed = 1.6f, PlayerJump = 4;
-    // Start is called before the first frame update
+    public int currentHealth;
+    public int maxHealth = 28;
+   
     void Start()
     {
         animator = GetComponent<Animator>();
         rb2D = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
+        currentHealth = maxHealth;
     }
     private void FixedUpdate()
     {
@@ -32,6 +36,12 @@ public class Player : MonoBehaviour
         else
         {
             isGrounded = false;
+        }
+        if(isTakingDamage)
+        {
+            animator.Play("Hit");
+            Invoke("StopDamageAnimation", 0.5f);
+            return;
         }
         if(Input.GetKey("f") && isGrounded)
         {
@@ -91,5 +101,56 @@ public class Player : MonoBehaviour
     private void ResetShoot()
     {
         isShooting = false;
+    }
+
+    public void HitSide(bool rightSide)
+    {
+        DamageSideRight = rightSide;
+    }
+
+    public void Invincibility(bool Invincible)
+    {
+        isInvincible = Invincible;
+    }
+
+    public void TakingDamage(int damage)
+    {
+        currentHealth -= damage;
+        if(currentHealth <= 0)
+        {
+            Destroy(gameObject);
+        }
+        else
+        {
+            StartDamageAnimation();
+        }
+    }
+
+    private void StartDamageAnimation()
+    {
+        if(!isTakingDamage)
+        {
+            isInvincible = true;
+            isTakingDamage = true;
+            float hitForceX = 1.5f;
+            float hitForceY = 1.5f;
+            if(DamageSideRight)
+            {
+                rb2D.velocity = Vector2.zero;
+                rb2D.AddForce(new Vector2(-hitForceX, hitForceY), ForceMode2D.Impulse);
+            }
+            else
+            {
+                rb2D.velocity = Vector2.zero;
+                rb2D.AddForce(new Vector2(hitForceX, hitForceY), ForceMode2D.Impulse);
+            }
+        }
+    }
+
+    private void StopDamageAnimation()
+    {
+        isTakingDamage = false;
+        isInvincible = false;
+        //animator.Play("Hit",0,0f);
     }
 }
