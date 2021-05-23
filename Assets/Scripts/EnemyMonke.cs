@@ -11,6 +11,12 @@ public class EnemyMonke : MonoBehaviour
     private SpriteRenderer sr;
     private UnityEngine.Object explosionRef;
     private Animator animator;
+    public float jumpHeight;
+    public Transform GroundCheck;
+    bool isGrounded,FacingLeft = true;
+    private Rigidbody2D rb2d;
+    public float jumpForceX = 2f;
+    public float jumpForceY = 4f;
 
     void Start()
     {
@@ -18,8 +24,31 @@ public class EnemyMonke : MonoBehaviour
         matDefault = sr.material;
         explosionRef = Resources.Load("Explosion");
         animator = GetComponent<Animator>();
+        rb2d = GetComponent<Rigidbody2D>();
+        StartCoroutine(Attack());
     }
-     private void OnTriggerEnter2D(Collider2D collision)
+
+    IEnumerator Attack()
+    {
+        yield return new WaitForSeconds(1.5f);
+        if (FacingLeft)
+        {
+            rb2d.velocity = Vector2.zero;
+            rb2d.AddForce(new Vector2(2f, 5f), ForceMode2D.Impulse);
+            sr.flipX = true;
+            FacingLeft = false;
+            yield return new WaitForSeconds(1.5f);
+        }
+        if (!FacingLeft)
+        {
+            rb2d.velocity = Vector2.zero;
+            rb2d.AddForce(new Vector2(-2f, 5f), ForceMode2D.Impulse);
+            sr.flipX = false;
+            FacingLeft = true;
+        }
+        StartCoroutine(Attack());
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.CompareTag("Bullet"))
         {
@@ -45,7 +74,6 @@ public class EnemyMonke : MonoBehaviour
             Player player = collision.gameObject.GetComponent<Player>();
             player.HitSide(transform.position.x > player.transform.position.x);
             player.TakingDamage(2);
-            Debug.Log("Contact");
         }
     }
     private void ResetMaterial()

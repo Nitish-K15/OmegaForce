@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Player : MonoBehaviour
 {
@@ -17,6 +18,7 @@ public class Player : MonoBehaviour
     public float PlayerSpeed = 1.6f, PlayerJump = 4;
     public int currentHealth;
     public int maxHealth = 28;
+    public Image HealthBar;
    
     void Start()
     {
@@ -116,7 +118,8 @@ public class Player : MonoBehaviour
     public void TakingDamage(int damage)
     {
         currentHealth -= damage;
-        if(currentHealth <= 0)
+        HealthBar.fillAmount = (float)currentHealth / (float)maxHealth;
+        if (currentHealth <= 0)
         {
             Destroy(gameObject);
         }
@@ -151,6 +154,5 @@ public class Player : MonoBehaviour
     {
         isTakingDamage = false;
         isInvincible = false;
-        //animator.Play("Hit",0,0f);
     }
 }
