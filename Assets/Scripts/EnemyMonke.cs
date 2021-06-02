@@ -6,6 +6,7 @@ using UnityEngine;
 public class EnemyMonke : MonoBehaviour
 {
     private int health = 5;
+    public int damage;
     public Material matWhite;
     private Material matDefault;
     private SpriteRenderer sr;
@@ -69,11 +70,11 @@ public class EnemyMonke : MonoBehaviour
    
     public void OnCollisionEnter2D(Collision2D collision)
     {
-        if(collision.gameObject.tag == "Player")
+        if(collision.gameObject.CompareTag("Player"))
         {
             Player player = collision.gameObject.GetComponent<Player>();
             player.HitSide(transform.position.x > player.transform.position.x);
-            player.TakingDamage(2);
+            player.TakingDamage(damage);
         }
     }
     private void ResetMaterial()

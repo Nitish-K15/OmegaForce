@@ -9,7 +9,8 @@ public class Player : MonoBehaviour
     Animator animator;
     Rigidbody2D rb2D;
     SpriteRenderer spriteRenderer;
-    bool isGrounded;
+    public Sprite Defeat;
+    public bool isGrounded;
     [SerializeField]
     Transform GroundCheck,GroundCheckL,GroundCheckR,BulletSpawnPosL,BulletSpawnPosR;
     public GameObject bulletref;
@@ -19,9 +20,12 @@ public class Player : MonoBehaviour
     public int currentHealth;
     public int maxHealth = 28;
     public Image HealthBar;
-   
+    private UnityEngine.Object explosionRef;
+    public AudioClip Jump, Shoot, Hit, Explode;
+
     void Start()
     {
+        explosionRef = Resources.Load("Explosion");
         animator = GetComponent<Animator>();
         rb2D = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -38,6 +42,10 @@ public class Player : MonoBehaviour
         else
         {
             isGrounded = false;
+            if (Input.GetKey("f"))
+                animator.Play("Jump_Shoot");
+            else
+                animator.Play("Jump");
         }
         if(isTakingDamage)
         {
@@ -79,6 +87,7 @@ public class Player : MonoBehaviour
         {
             rb2D.velocity = new Vector2(rb2D.velocity.x, PlayerJump);
                 animator.Play("Jump");
+            SoundManager.Instance.Play(Jump);
         }
         if (Input.GetKey("f") && isGrounded == false)
         {
@@ -91,6 +100,7 @@ public class Player : MonoBehaviour
     {
         if (isShooting)
             return;
+        SoundManager.Instance.Play(Shoot);
         isShooting = true;
         GameObject bullet = Instantiate(bulletref);
         bullet.GetComponent<Bullet>().StartShoot(FacingLeft);
@@ -110,18 +120,17 @@ public class Player : MonoBehaviour
         DamageSideRight = rightSide;
     }
 
-    public void Invincibility(bool Invincible)
-    {
-        isInvincible = Invincible;
-    }
-
     public void TakingDamage(int damage)
     {
+        SoundManager.Instance.Play(Hit);
         currentHealth -= damage;
         HealthBar.fillAmount = (float)currentHealth / (float)maxHealth;
         if (currentHealth <= 0)
         {
-            Destroy(gameObject);
+            animator.enabled = false;
+            spriteRenderer.sprite = Defeat;
+            rb2D.velocity = Vector2.zero;
+            Invoke("KillSelf", 0.5f);
         }
         else
         {
@@ -150,9 +159,17 @@ public class Player : MonoBehaviour
         }
     }
 
-    private void StopDamageAnimation()
+    private void KillSelf()
+    {
+        SoundManager.Instance.Play(Explode);
+        Destroy(gameObject);
+        GameObject explosion = (GameObject)Instantiate(explosionRef);
+        explosion.transform.position = new Vector3(transform.position.x, transform.position.y + .3f, transform.position.z);
+    }
+        private void StopDamageAnimation()
     {
         isTakingDamage = false;
         isInvincible = false;
     }
+    
 }

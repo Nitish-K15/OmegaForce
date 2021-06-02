@@ -5,6 +5,7 @@ using UnityEngine;
 public class PlayerWeaponManager : MonoBehaviour
 {
     public GameObject BulletPref1, BulletPref2, BulletPref3;
+    public AudioClip Bullet1, Bullet2, Bullet3;
     Player playerShoot;
     private void Awake()
     {
@@ -33,13 +34,22 @@ public class PlayerWeaponManager : MonoBehaviour
         switch(Weaponid)
         {
             case 1:
-                playerShoot.bulletref = BulletPref1;
+                {
+                    playerShoot.bulletref = BulletPref1;
+                    playerShoot.Shoot = Bullet1;
+                }
                 break;
             case 2:
-                playerShoot.bulletref = BulletPref2;
+                {
+                    playerShoot.bulletref = BulletPref2;
+                    playerShoot.Shoot = Bullet2;
+                }
                 break;
             case 3:
-                playerShoot.bulletref = BulletPref3;
+                {
+                    playerShoot.bulletref = BulletPref3;
+                    playerShoot.Shoot = Bullet3;
+                }
                 break;
         }
     }
