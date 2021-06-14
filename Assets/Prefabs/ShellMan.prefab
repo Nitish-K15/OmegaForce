@@ -225,3 +225,6 @@ MonoBehaviour:
   bulletref: {fileID: 4081800684746530317, guid: 0cb963ee218f75b409585a32bca46ff7, type: 3}
   matWhite: {fileID: 2100000, guid: 5d123aa26e2427b40a05b587ea209cf9, type: 2}
   health: 3
+  Dink: {fileID: 8300000, guid: 48a30e258f5ef0241a73bc245b750896, type: 3}
+  Shot: {fileID: 8300000, guid: 368cb3c77c560f84892165b193511fe7, type: 3}
+  Exploding: {fileID: 8300000, guid: 3ef784a6fcc7687409cfaf04df76484f, type: 3}

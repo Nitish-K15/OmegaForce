@@ -50,7 +50,7 @@ public class Player : MonoBehaviour
         if(isTakingDamage)
         {
             animator.Play("Hit");
-            Invoke("StopDamageAnimation", 0.5f);
+            Invoke("StopDamageAnimation", 1f);
             return;
         }
         if(Input.GetKey("f") && isGrounded)
@@ -124,6 +124,7 @@ public class Player : MonoBehaviour
     {
         SoundManager.Instance.Play(Hit);
         currentHealth -= damage;
+        //gameObject.layer = 8;
         HealthBar.fillAmount = (float)currentHealth / (float)maxHealth;
         if (currentHealth <= 0)
         {
@@ -142,6 +143,7 @@ public class Player : MonoBehaviour
     {
         if(!isTakingDamage)
         {
+           
             isInvincible = true;
             isTakingDamage = true;
             float hitForceX = 1.5f;
@@ -168,6 +170,7 @@ public class Player : MonoBehaviour
     }
         private void StopDamageAnimation()
     {
+        //gameObject.layer = 7;
         isTakingDamage = false;
         isInvincible = false;
     }

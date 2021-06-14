@@ -12,7 +12,9 @@ public class ShellMan : MonoBehaviour
     private Material matDefault;
     private GameObject[] bullet = new GameObject[3];
     private SpriteRenderer sr;
+    private bool Invincible;
     public int health = 3;
+    [SerializeField] AudioClip Dink, Shot, Exploding;
     private void Start()
     {
         explosionRef = Resources.Load("Explosion");
@@ -22,6 +24,7 @@ public class ShellMan : MonoBehaviour
     }
     private void Shoot()
     {
+        SoundManager.Instance.Play(Shot);
         for(int i = 0;i<3;i++)
         {
             bullet[i] = Instantiate(bulletref);
@@ -32,7 +35,7 @@ public class ShellMan : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Bullet"))
+        if (collision.CompareTag("Bullet") && !Invincible)
         {
             Destroy(collision.gameObject);
             int BulletDamage = collision.GetComponent<Bullet>().Damage;
@@ -47,6 +50,11 @@ public class ShellMan : MonoBehaviour
                 Invoke("ResetMaterial", 0.1f);
             }
         }
+        else if (collision.CompareTag("Bullet") && Invincible)
+        {
+            SoundManager.Instance.Play(Dink);
+            Destroy(collision.gameObject);
+        }
     }
 
     private void ResetMaterial()
@@ -56,6 +64,7 @@ public class ShellMan : MonoBehaviour
 
     private void KillSelf()
     {
+        SoundManager.Instance.Play(Exploding);
         GameObject explosion = (GameObject)Instantiate(explosionRef);
         explosion.transform.position = new Vector3(transform.position.x, transform.position.y + .3f, transform.position.z);
         Destroy(gameObject);
@@ -64,9 +73,11 @@ public class ShellMan : MonoBehaviour
     {
         yield return new WaitForSeconds(1f);
         sr.sprite = Shooting;
+        Invincible = false;
         Shoot();
         yield return new WaitForSeconds(0.5f);
         sr.sprite = Resting;
+        Invincible = true;
         StartCoroutine(Attack());
     }
 }

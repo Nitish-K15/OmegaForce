@@ -191,6 +191,8 @@ MonoBehaviour:
   FacingLeft: 1
   bulletref: {fileID: 4081800684746530317, guid: 0cb963ee218f75b409585a32bca46ff7, type: 3}
   health: 5
+  Shot: {fileID: 8300000, guid: 368cb3c77c560f84892165b193511fe7, type: 3}
+  Exploding: {fileID: 8300000, guid: 3ef784a6fcc7687409cfaf04df76484f, type: 3}
 --- !u!1 &5310868691266666710
 GameObject:
   m_ObjectHideFlags: 0

@@ -18,7 +18,7 @@ public class EnemyMonke : MonoBehaviour
     private Rigidbody2D rb2d;
     public float jumpForceX = 2f;
     public float jumpForceY = 4f;
-
+    [SerializeField] AudioClip Exploding;
     void Start()
     {
         sr = GetComponent<SpriteRenderer>();
@@ -26,6 +26,7 @@ public class EnemyMonke : MonoBehaviour
         explosionRef = Resources.Load("Explosion");
         animator = GetComponent<Animator>();
         rb2d = GetComponent<Rigidbody2D>();
+        //Physics2D.IgnoreLayerCollision(6, 8);
         StartCoroutine(Attack());
     }
 
@@ -66,10 +67,6 @@ public class EnemyMonke : MonoBehaviour
                 Invoke("ResetMaterial", 0.1f);
             }
         }
-    }
-   
-    public void OnCollisionEnter2D(Collision2D collision)
-    {
         if(collision.gameObject.CompareTag("Player"))
         {
             Player player = collision.gameObject.GetComponent<Player>();
@@ -77,6 +74,16 @@ public class EnemyMonke : MonoBehaviour
             player.TakingDamage(damage);
         }
     }
+   
+    /*public void OnCollisionEnter2D(Collision2D collision)
+    {
+        if(collision.gameObject.CompareTag("Player"))
+        {
+            Player player = collision.gameObject.GetComponent<Player>();
+            player.HitSide(transform.position.x > player.transform.position.x);
+            player.TakingDamage(damage);
+        }
+    }*/
     private void ResetMaterial()
     {
         sr.material = matDefault;
@@ -84,6 +91,7 @@ public class EnemyMonke : MonoBehaviour
 
     private void KillSelf()
     {
+        SoundManager.Instance.Play(Exploding);
         GameObject explosion = (GameObject)Instantiate(explosionRef);
         explosion.transform.position = new Vector3(transform.position.x, transform.position.y + .3f, transform.position.z);
         Destroy(gameObject);

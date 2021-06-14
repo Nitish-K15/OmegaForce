@@ -15,6 +15,7 @@ public class FlyingShell : MonoBehaviour
     private GameObject[] bullet = new GameObject[3];
     private SpriteRenderer sr;
     public int health = 5;
+    [SerializeField] AudioClip Shot,Exploding;
     void Start()
     {
         explosionRef = Resources.Load("Explosion");
@@ -49,12 +50,14 @@ public class FlyingShell : MonoBehaviour
 
     private void KillSelf()
     {
+        SoundManager.Instance.Play(Exploding);
         GameObject explosion = (GameObject)Instantiate(explosionRef);
         explosion.transform.position = new Vector3(transform.position.x, transform.position.y + .3f, transform.position.z);
         Destroy(gameObject);
     }
     private void Shoot()
     {
+        SoundManager.Instance.Play(Shot);
             bullet[0] = Instantiate(bulletref);
             bullet[0].GetComponent<EnemyBullet>().Shoot(-3f,-3f);
             bullet[0].transform.position = BulletSpawn[0].position;
