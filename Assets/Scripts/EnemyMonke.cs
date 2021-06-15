@@ -32,23 +32,25 @@ public class EnemyMonke : MonoBehaviour
 
     IEnumerator Attack()
     {
-        yield return new WaitForSeconds(1.5f);
-        if (FacingLeft)
+        while (true)
         {
-            rb2d.velocity = Vector2.zero;
-            rb2d.AddForce(new Vector2(2f, 5f), ForceMode2D.Impulse);
-            sr.flipX = true;
-            FacingLeft = false;
             yield return new WaitForSeconds(1.5f);
+            if (FacingLeft)
+            {
+                rb2d.velocity = Vector2.zero;
+                rb2d.AddForce(new Vector2(2f, 5f), ForceMode2D.Impulse);
+                sr.flipX = true;
+                FacingLeft = false;
+                yield return new WaitForSeconds(1.5f);
+            }
+            if (!FacingLeft)
+            {
+                rb2d.velocity = Vector2.zero;
+                rb2d.AddForce(new Vector2(-2f, 5f), ForceMode2D.Impulse);
+                sr.flipX = false;
+                FacingLeft = true;
+            }
         }
-        if (!FacingLeft)
-        {
-            rb2d.velocity = Vector2.zero;
-            rb2d.AddForce(new Vector2(-2f, 5f), ForceMode2D.Impulse);
-            sr.flipX = false;
-            FacingLeft = true;
-        }
-        StartCoroutine(Attack());
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -75,15 +77,6 @@ public class EnemyMonke : MonoBehaviour
         }
     }
    
-    /*public void OnCollisionEnter2D(Collision2D collision)
-    {
-        if(collision.gameObject.CompareTag("Player"))
-        {
-            Player player = collision.gameObject.GetComponent<Player>();
-            player.HitSide(transform.position.x > player.transform.position.x);
-            player.TakingDamage(damage);
-        }
-    }*/
     private void ResetMaterial()
     {
         sr.material = matDefault;

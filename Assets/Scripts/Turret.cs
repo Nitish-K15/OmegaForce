@@ -2,40 +2,41 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class ShellMan : MonoBehaviour
+public class Turret : MonoBehaviour
 {
-    public Sprite Shooting, Resting;
-    public Transform[] BulletSpawn = new Transform[3];
-    public GameObject bulletref;
-    private UnityEngine.Object explosionRef;
+    public Transform BulletSpawn1, BulletSpawn2;
+    private Animator anim;
+    public int health = 5;
     public Material matWhite;
     private Material matDefault;
-    private GameObject[] bullet = new GameObject[3];
+    private GameObject[] bullet = new GameObject[2];
+    public GameObject bulletref;
+    private UnityEngine.Object explosionRef;
     private SpriteRenderer sr;
-    private bool Invincible;
-    public int health = 3;
-    [SerializeField] AudioClip Dink, Shot, Exploding;
+    [SerializeField] AudioClip Shooting, Exploding;
     private void Start()
     {
+        anim = GetComponent<Animator>();
         explosionRef = Resources.Load("Explosion");
         sr = GetComponent<SpriteRenderer>();
         matDefault = sr.material;
         StartCoroutine(Attack());
     }
+
     private void Shoot()
     {
-        SoundManager.Instance.Play(Shot);
-        for(int i = 0;i<3;i++)
-        {
-            bullet[i] = Instantiate(bulletref);
-            bullet[i].GetComponent<EnemyBullet>().Shoot(-3f, 0);
-            bullet[i].transform.position = BulletSpawn[i].position;
-        }
+        SoundManager.Instance.Play(Shooting);
+        bullet[0] = Instantiate(bulletref);
+        bullet[0].GetComponent<EnemyBullet>().Shoot(-3f, 0);
+        bullet[0].transform.position = BulletSpawn1.position;
+        bullet[1] = Instantiate(bulletref);
+        bullet[1].GetComponent<EnemyBullet>().Shoot(3f, 0);
+        bullet[1].transform.position = BulletSpawn2.position;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Bullet") && !Invincible)
+        if (collision.CompareTag("Bullet"))
         {
             Destroy(collision.gameObject);
             int BulletDamage = collision.GetComponent<Bullet>().Damage;
@@ -49,11 +50,6 @@ public class ShellMan : MonoBehaviour
             {
                 Invoke("ResetMaterial", 0.1f);
             }
-        }
-        else if (collision.CompareTag("Bullet") && Invincible)
-        {
-            SoundManager.Instance.Play(Dink);
-            Destroy(collision.gameObject);
         }
     }
 
@@ -69,17 +65,17 @@ public class ShellMan : MonoBehaviour
         explosion.transform.position = new Vector3(transform.position.x, transform.position.y + .3f, transform.position.z);
         Destroy(gameObject);
     }
+
     IEnumerator Attack()
     {
         while(true)
-        { 
+        {
             yield return new WaitForSeconds(1f);
-            sr.sprite = Shooting;
-            Invincible = false;
             Shoot();
-            yield return new WaitForSeconds(0.5f);
-            sr.sprite = Resting;
-            Invincible = true;
+            yield return new WaitForSeconds(1f);
+            anim.Play("PoppingIn");
+            yield return new WaitForSeconds(1f);
+            anim.Play("PoppingOut");
         }
     }
 }

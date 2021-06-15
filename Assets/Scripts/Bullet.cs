@@ -5,7 +5,7 @@ using UnityEngine;
 public class Bullet : MonoBehaviour
 {
     public int Damage, Speed;
-    public float DestroyTime;
+    public float DestroyTime,Delay;
     void Start()
     {
         Invoke("DestroySelf", DestroyTime);  //Destroy Bullet after set time

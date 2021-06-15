@@ -71,17 +71,19 @@ public class FlyingShell : MonoBehaviour
  
     IEnumerator Attack()
     {
-        yield return new WaitForSeconds(1f);
-        rb2d.velocity = Vector2.zero;
-        sr.sprite = Shooting;
-        Shoot();
-        yield return new WaitForSeconds(0.5f);
-        sr.sprite = Resting;
-        if(FacingLeft)
-         rb2d.velocity = new Vector2(-0.5f, rb2d.velocity.y);
-        else
-         rb2d.velocity = new Vector2(0.5f, rb2d.velocity.y);
-        StartCoroutine(Attack());
+        while (true)
+        {
+            yield return new WaitForSeconds(1f);
+            rb2d.velocity = Vector2.zero;
+            sr.sprite = Shooting;
+            Shoot();
+            yield return new WaitForSeconds(0.5f);
+            sr.sprite = Resting;
+            if (FacingLeft)
+                rb2d.velocity = new Vector2(-0.5f, rb2d.velocity.y);
+            else
+                rb2d.velocity = new Vector2(0.5f, rb2d.velocity.y);
+        }
     }
 
 

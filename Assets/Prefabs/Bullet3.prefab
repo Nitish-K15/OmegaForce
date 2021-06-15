@@ -158,3 +158,4 @@ MonoBehaviour:
   Damage: 2
   Speed: 4
   DestroyTime: 1
+  Delay: 0.5

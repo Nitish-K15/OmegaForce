@@ -138,4 +138,4 @@ MonoBehaviour:
   Damage: 5
   Speed: 2
   DestroyTime: 0.5
-  ShootDelay: 1
+  Delay: 1

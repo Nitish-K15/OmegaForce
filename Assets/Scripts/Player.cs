@@ -53,34 +53,45 @@ public class Player : MonoBehaviour
             Invoke("StopDamageAnimation", 1f);
             return;
         }
-        if(Input.GetKey("f") && isGrounded)
+        if(Input.GetKey("f"))
         {
-            if (rb2D.velocity.x == 0)
-                animator.Play("Shoot");
-            else
-                animator.Play("Run_Shoot");
                PlayerShoot();
         }
         if (Input.GetKey("d") || Input.GetKey("right"))
         {
             rb2D.velocity = new Vector2(PlayerSpeed, rb2D.velocity.y);
-            if (isGrounded && !isShooting)
-                animator.Play("Run");
+            if (isGrounded)
+            {
+                if (Input.GetKey("f"))
+                    animator.Play("Run_Shoot");
+                else
+                    animator.Play("Run");
+            }
             spriteRenderer.flipX = false;
             FacingLeft = false;
         }
         else if (Input.GetKey("a") || Input.GetKey("left"))
         {
             rb2D.velocity = new Vector2(-PlayerSpeed, rb2D.velocity.y);
-            if (isGrounded && !isShooting)
-                animator.Play("Run");
+            if (isGrounded)
+            {
+                if (Input.GetKey("f"))
+                    animator.Play("Run_Shoot");
+                else
+                    animator.Play("Run");
+            }
             spriteRenderer.flipX = true;
             FacingLeft = true;
         }
         else
-        { 
-            if (isGrounded && !isShooting)
-                animator.Play("Idle");
+        {
+            if (isGrounded)
+            {
+                if (Input.GetKey("f") && isShooting)
+                    animator.Play("Shoot");
+                else
+                    animator.Play("Idle");
+            }
             rb2D.velocity = new Vector2(0, rb2D.velocity.y);
         }
         if (Input.GetKey("space") && isGrounded == true)
@@ -98,17 +109,19 @@ public class Player : MonoBehaviour
 
     private void PlayerShoot()
     {
+        float delay;
         if (isShooting)
             return;
         SoundManager.Instance.Play(Shoot);
         isShooting = true;
         GameObject bullet = Instantiate(bulletref);
         bullet.GetComponent<Bullet>().StartShoot(FacingLeft);
+        delay = bullet.GetComponent<Bullet>().Delay;
         if (FacingLeft)
             bullet.transform.position = BulletSpawnPosL.position;
         else
             bullet.transform.position = BulletSpawnPosR.position;
-        Invoke("ResetShoot", 0.3f);
+        Invoke("ResetShoot", delay);
     }
     private void ResetShoot()
     {
