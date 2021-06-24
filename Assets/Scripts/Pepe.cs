@@ -11,6 +11,10 @@ public class Pepe : MonoBehaviour
     public int health = 3,damage = 3;
     public AudioClip Exploding;
     private Rigidbody2D rb2d;
+    private void Awake()
+    {
+        gameObject.SetActive(false);
+    }
     private void Start()
     {
         rb2d = GetComponent<Rigidbody2D>();

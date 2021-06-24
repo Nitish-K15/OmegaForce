@@ -8,7 +8,7 @@ public class BigEye : MonoBehaviour
     private BoxCollider2D coll;
     private SpriteRenderer sr;
     public Sprite InAir,Standing;
-    public Transform player;
+    private Transform player;
     private UnityEngine.Object explosionRef;
     public Material matWhite;
     private Material matDefault;
@@ -17,16 +17,25 @@ public class BigEye : MonoBehaviour
     private Rigidbody2D rb2d;
     public LayerMask ground;
     [SerializeField] AudioClip Exploding;
+    private void Awake()
+    {
+        gameObject.SetActive(false);
+    }
     private void Start()
     {
+        player = GameObject.Find("Player").GetComponent<Transform>();
         coll = GetComponent<BoxCollider2D>();
         rb2d = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
         explosionRef = Resources.Load("Explosion");
         matDefault = sr.material;
-        StartCoroutine(Attack());
+        //StartCoroutine(Attack());
     }
 
+    public void Spawn()
+    {
+        StartCoroutine(Attack());
+    }
     IEnumerator Attack()
     {
         while (true)
@@ -101,6 +110,7 @@ public class BigEye : MonoBehaviour
 
     private void KillSelf()
     {
+        GameManager.Instance.AddScorePoints(200);
         SoundManager.Instance.Play(Exploding);
         GameObject explosion = (GameObject)Instantiate(explosionRef);
         explosion.transform.position = new Vector3(transform.position.x, transform.position.y + .3f, transform.position.z);

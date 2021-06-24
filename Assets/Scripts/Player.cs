@@ -33,8 +33,8 @@ public class Player : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (Physics2D.Linecast(transform.position, GroundCheck.position, 1 << LayerMask.NameToLayer("Ground"))&&
-            Physics2D.Linecast(transform.position, GroundCheckL.position, 1 << LayerMask.NameToLayer("Ground"))&&
+        if (Physics2D.Linecast(transform.position, GroundCheck.position, 1 << LayerMask.NameToLayer("Ground"))||
+            Physics2D.Linecast(transform.position, GroundCheckL.position, 1 << LayerMask.NameToLayer("Ground"))||
             Physics2D.Linecast(transform.position, GroundCheckR.position, 1 << LayerMask.NameToLayer("Ground")))
         {
             isGrounded = true;
@@ -180,6 +180,7 @@ public class Player : MonoBehaviour
         Destroy(gameObject);
         GameObject explosion = (GameObject)Instantiate(explosionRef);
         explosion.transform.position = new Vector3(transform.position.x, transform.position.y + .3f, transform.position.z);
+        GameManager.Instance.updateLives();
     }
         private void StopDamageAnimation()
     {

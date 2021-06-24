@@ -16,12 +16,21 @@ public class FlyingShell : MonoBehaviour
     private SpriteRenderer sr;
     public int health = 5;
     [SerializeField] AudioClip Shot,Exploding;
+    private void Awake()
+    {
+        gameObject.SetActive(false);
+    }
     void Start()
     {
         explosionRef = Resources.Load("Explosion");
         rb2d = GetComponent<Rigidbody2D>();
         sr = GetComponent<SpriteRenderer>();
         matDefault = sr.material;
+        //StartCoroutine(Attack());
+    }
+
+    public void Spawn()
+    {
         StartCoroutine(Attack());
     }
     private void OnTriggerEnter2D(Collider2D collision)
@@ -50,6 +59,7 @@ public class FlyingShell : MonoBehaviour
 
     private void KillSelf()
     {
+        GameManager.Instance.AddScorePoints(30);
         SoundManager.Instance.Play(Exploding);
         GameObject explosion = (GameObject)Instantiate(explosionRef);
         explosion.transform.position = new Vector3(transform.position.x, transform.position.y + .3f, transform.position.z);

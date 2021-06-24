@@ -9,8 +9,8 @@ using UnityEngine.UI;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance = null;
-    int Score;
-    Text playerScoreText,screenMessageText;
+    int Score,Lives=3;
+    Text playerScoreText,screenMessageText,LiveText;
     Player player;
 
     private void Awake()
@@ -29,12 +29,34 @@ public class GameManager : MonoBehaviour
         // Set GameManager to DontDestroyOnLoad so that it won't be destroyed when reloading our scene
         DontDestroyOnLoad(gameObject);
     }
+    private void OnEnable()
+    {
+        SceneManager.sceneLoaded += OnSceneLoaded;
+    }
 
-    private void Start()
+    // called when the game is terminated
+    private void OnDisable()
+    {
+        SceneManager.sceneLoaded -= OnSceneLoaded;
+    }
+
+    private void StartGame()
     {
         playerScoreText = GameObject.Find("Score").GetComponent<Text>();
-        screenMessageText = GameObject.Find("ScreenMessage").GetComponent<Text>();
+        LiveText = GameObject.Find("Lives").GetComponent<Text>();
         SoundManager.Instance.MusicSource.Play();
+        screenMessageText = GameObject.Find("ScreenMessage").GetComponent<Text>();
+        playerScoreText.text = Score.ToString();
+        LiveText.text = "Lives x" + Lives.ToString();
+        StartCoroutine(CountdownEvent(3));
+    }
+
+    private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
+    {
+        StartGame();
+    }
+    public void NewScene()
+    {
         StartCoroutine(CountdownEvent(3));
     }
     public void AddScorePoints(int points)
@@ -42,17 +64,29 @@ public class GameManager : MonoBehaviour
         Score += points;
         playerScoreText.text = Score.ToString();
     }
+    public void updateLives()
+    {
+        Lives -= 1;
+        LiveText.text = "Lives x" + Lives.ToString();
+        Invoke("Reload", 0.75f);
+    }
     IEnumerator CountdownEvent(int count)
     {
+        screenMessageText.gameObject.SetActive(true);
         Time.timeScale = 0;
         while (count > 0)
         {
-          
             screenMessageText.text = "Ready";
             yield return new WaitForSecondsRealtime(1);
             count--;
         }
-        screenMessageText.enabled = false;
+        screenMessageText.gameObject.SetActive(false);
         Time.timeScale = 1;
+    }
+
+    private void Reload()
+    {
+        Scene scene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(scene.name);
     }
 }

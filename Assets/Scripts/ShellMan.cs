@@ -15,12 +15,19 @@ public class ShellMan : MonoBehaviour
     private bool Invincible;
     public int health = 3;
     [SerializeField] AudioClip Dink, Shot, Exploding;
+    private void Awake()
+    {
+        gameObject.SetActive(false);
+    }
+    public void Spawn()
+    {
+        StartCoroutine(Attack());
+    }
     private void Start()
     {
         explosionRef = Resources.Load("Explosion");
         sr = GetComponent<SpriteRenderer>();
         matDefault = sr.material;
-        StartCoroutine(Attack());
     }
     private void Shoot()
     {
@@ -64,6 +71,7 @@ public class ShellMan : MonoBehaviour
 
     private void KillSelf()
     {
+        GameManager.Instance.AddScorePoints(60);
         SoundManager.Instance.Play(Exploding);
         GameObject explosion = (GameObject)Instantiate(explosionRef);
         explosion.transform.position = new Vector3(transform.position.x, transform.position.y + .3f, transform.position.z);

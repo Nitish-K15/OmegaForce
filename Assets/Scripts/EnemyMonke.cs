@@ -19,6 +19,11 @@ public class EnemyMonke : MonoBehaviour
     public float jumpForceX = 2f;
     public float jumpForceY = 4f;
     [SerializeField] AudioClip Exploding;
+
+    private void Awake()
+    {
+        gameObject.SetActive(false);
+    }
     void Start()
     {
         sr = GetComponent<SpriteRenderer>();
@@ -26,10 +31,12 @@ public class EnemyMonke : MonoBehaviour
         explosionRef = Resources.Load("Explosion");
         animator = GetComponent<Animator>();
         rb2d = GetComponent<Rigidbody2D>();
-        //Physics2D.IgnoreLayerCollision(6, 8);
-        StartCoroutine(Attack());
     }
 
+    private void OnEnable()
+    {
+        StartCoroutine(Attack());
+    }
     IEnumerator Attack()
     {
         while (true)
@@ -84,6 +91,7 @@ public class EnemyMonke : MonoBehaviour
 
     private void KillSelf()
     {
+        GameManager.Instance.AddScorePoints(100);
         SoundManager.Instance.Play(Exploding);
         GameObject explosion = (GameObject)Instantiate(explosionRef);
         explosion.transform.position = new Vector3(transform.position.x, transform.position.y + .3f, transform.position.z);

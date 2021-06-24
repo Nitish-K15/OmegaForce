@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class Turret : MonoBehaviour
@@ -14,15 +15,23 @@ public class Turret : MonoBehaviour
     private UnityEngine.Object explosionRef;
     private SpriteRenderer sr;
     [SerializeField] AudioClip Shooting, Exploding;
-    private void Start()
+    private void Awake()
     {
+        gameObject.SetActive(false);
+    }
+    private void Start()
+    { 
         anim = GetComponent<Animator>();
         explosionRef = Resources.Load("Explosion");
         sr = GetComponent<SpriteRenderer>();
         matDefault = sr.material;
-        StartCoroutine(Attack());
     }
 
+    private void OnEnable()
+    {
+        StartCoroutine(Attack());
+    }
+   
     private void Shoot()
     {
         SoundManager.Instance.Play(Shooting);
@@ -60,6 +69,7 @@ public class Turret : MonoBehaviour
 
     private void KillSelf()
     {
+        GameManager.Instance.AddScorePoints(50);
         SoundManager.Instance.Play(Exploding);
         GameObject explosion = (GameObject)Instantiate(explosionRef);
         explosion.transform.position = new Vector3(transform.position.x, transform.position.y + .3f, transform.position.z);
@@ -69,7 +79,7 @@ public class Turret : MonoBehaviour
     IEnumerator Attack()
     {
         while(true)
-        {
+        { 
             yield return new WaitForSeconds(1f);
             Shoot();
             yield return new WaitForSeconds(1f);
