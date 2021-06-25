@@ -22,14 +22,18 @@ public class Player : MonoBehaviour
     public Image HealthBar;
     private UnityEngine.Object explosionRef;
     public AudioClip Jump, Shoot, Hit, Explode;
-
+    private void OnEnable()
+    {
+        currentHealth = maxHealth;
+        transform.position = GameManager.Instance.Checkpoint;
+    }
     void Start()
     {
         explosionRef = Resources.Load("Explosion");
         animator = GetComponent<Animator>();
         rb2D = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
-        currentHealth = maxHealth;
+        HealthBar = GameObject.Find("HealthBar").GetComponent<Image>();
     }
     private void FixedUpdate()
     {
@@ -177,16 +181,21 @@ public class Player : MonoBehaviour
     private void KillSelf()
     {
         SoundManager.Instance.Play(Explode);
-        Destroy(gameObject);
+        this.gameObject.SetActive(false);
         GameObject explosion = (GameObject)Instantiate(explosionRef);
         explosion.transform.position = new Vector3(transform.position.x, transform.position.y + .3f, transform.position.z);
-        GameManager.Instance.updateLives();
+        GameManager.Instance.UpdateLives();
     }
         private void StopDamageAnimation()
     {
-        //gameObject.layer = 7;
         isTakingDamage = false;
         isInvincible = false;
     }
-    
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if(collision.CompareTag("Checkpoint"))
+        {
+            GameManager.Instance.UpdateCheckpoint(collision.gameObject.transform.position);
+        }
+    }
 }

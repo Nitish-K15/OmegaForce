@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 31199884162077338}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BulletSpawnPosR
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
@@ -45,7 +45,7 @@ GameObject:
   - component: {fileID: 31199884237233201}
   - component: {fileID: 31199884237233202}
   - component: {fileID: 31199884237233203}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -202,6 +202,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Defeat: {fileID: 5602337906906987636, guid: 391b66795f9b6a4498b748deaa6c2276, type: 3}
+  isGrounded: 0
   GroundCheck: {fileID: 31199885214747017}
   GroundCheckL: {fileID: 31199885410989732}
   GroundCheckR: {fileID: 31199885239279830}
@@ -245,7 +246,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 31199885186831441}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: BulletSpawnPosL
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
@@ -275,7 +276,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 31199885214747017}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GroundCheck
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
@@ -305,7 +306,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 31199885239279830}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GroundCheckR
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}
@@ -335,7 +336,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 31199885410989732}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: GroundCheckL
   m_TagString: Untagged
   m_Icon: {fileID: 7174288486110832750, guid: 0000000000000000d000000000000000, type: 0}

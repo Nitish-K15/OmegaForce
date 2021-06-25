@@ -11,6 +11,10 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance = null;
     int Score,Lives=3;
     Text playerScoreText,screenMessageText,LiveText;
+    public GameObject playerRef;
+    //public Transform LevelStart;
+    [SerializeField]
+    public Vector2 Checkpoint;
     Player player;
 
     private void Awake()
@@ -49,26 +53,31 @@ public class GameManager : MonoBehaviour
         playerScoreText.text = Score.ToString();
         LiveText.text = "Lives x" + Lives.ToString();
         StartCoroutine(CountdownEvent(3));
+        player.gameObject.SetActive(true);
+    }
+    public void UpdateCheckpoint(Vector2 PlayerCheck)
+    {
+        Checkpoint = PlayerCheck;
     }
 
     private void OnSceneLoaded(Scene scene, LoadSceneMode mode)
     {
         StartGame();
     }
-    public void NewScene()
-    {
-        StartCoroutine(CountdownEvent(3));
-    }
+
     public void AddScorePoints(int points)
     {
         Score += points;
         playerScoreText.text = Score.ToString();
     }
-    public void updateLives()
+    public void UpdateLives()
     {
-        Lives -= 1;
-        LiveText.text = "Lives x" + Lives.ToString();
-        Invoke("Reload", 0.75f);
+        if (Lives != 0)
+        {
+            Lives -= 1;
+            LiveText.text = "Lives x" + Lives.ToString();
+            Invoke("Reload", 1f);
+        }
     }
     IEnumerator CountdownEvent(int count)
     {
@@ -83,7 +92,6 @@ public class GameManager : MonoBehaviour
         screenMessageText.gameObject.SetActive(false);
         Time.timeScale = 1;
     }
-
     private void Reload()
     {
         Scene scene = SceneManager.GetActiveScene();

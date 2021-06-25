@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
-{
-    [SerializeField]
+{ 
     GameObject Player;
     [SerializeField]
     float timeOffset;
@@ -14,6 +13,10 @@ public class CameraFollow : MonoBehaviour
     float upperlimit, lowerlimit, leftlimit, rightlimit;
     private void Update()
     {
+        if (!Player)
+        {
+            Player = GameObject.FindGameObjectWithTag("Player");
+        }
         Vector3 startPos = transform.position;
         Vector3 endPos = Player.transform.position;
         endPos.x += posOffset.x;

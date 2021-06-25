@@ -13,7 +13,7 @@ public class EnemySpawner : MonoBehaviour
         if (!Enemy)
             Destroy(gameObject);
         screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
-        if (transform.position.x < screenBounds.x * 1.2f)
+        if (transform.position.x < screenBounds.x)
             Enemy.SetActive(true);
        else
         {
