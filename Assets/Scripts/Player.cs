@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
@@ -22,6 +23,7 @@ public class Player : MonoBehaviour
     public Image HealthBar;
     private UnityEngine.Object explosionRef;
     public AudioClip Jump, Shoot, Hit, Explode;
+    private int currentLevel;
     private void OnEnable()
     {
         currentHealth = maxHealth;
@@ -34,6 +36,7 @@ public class Player : MonoBehaviour
         rb2D = GetComponent<Rigidbody2D>();
         spriteRenderer = GetComponent<SpriteRenderer>();
         HealthBar = GameObject.Find("HealthBar").GetComponent<Image>();
+        currentLevel = SceneManager.GetActiveScene().buildIndex;
     }
     private void FixedUpdate()
     {
@@ -110,7 +113,13 @@ public class Player : MonoBehaviour
             PlayerShoot();
         }
     }
-
+    public void ClearLevel()
+    {
+        if(currentLevel >= PlayerPrefs.GetInt("LevelsUnlocked"))
+        {
+            PlayerPrefs.SetInt("LevelsUnlocked", currentLevel + 1);
+        }
+    }
     private void PlayerShoot()
     {
         float delay;
