@@ -13,6 +13,7 @@ public class MainMenu : MonoBehaviour
         Controls.SetActive(false);
         Invoke("ActivatePanel", 3f);
     }
+
     private void ActivatePanel()
     {
         Menu.SetActive(true);
@@ -36,5 +37,10 @@ public class MainMenu : MonoBehaviour
     public void LevelSelect()
     {
         SceneManager.LoadScene("Level_Select");
+    }
+
+    public void ExitGame()
+    {
+        Application.Quit();
     }
 }

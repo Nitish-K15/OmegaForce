@@ -38,7 +38,7 @@ public class Player : MonoBehaviour
         HealthBar = GameObject.Find("HealthBar").GetComponent<Image>();
         currentLevel = SceneManager.GetActiveScene().buildIndex;
     }
-    private void FixedUpdate()
+    private void Update()
     {
         if (Physics2D.Linecast(transform.position, GroundCheck.position, 1 << LayerMask.NameToLayer("Ground"))||
             Physics2D.Linecast(transform.position, GroundCheckL.position, 1 << LayerMask.NameToLayer("Ground"))||

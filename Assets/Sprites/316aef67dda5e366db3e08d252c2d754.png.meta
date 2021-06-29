@@ -1,7 +1,25 @@
 fileFormatVersion: 2
 guid: 0f04c909548982b4490df42bd34af69a
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: -5556314775092587399
+    second: Hall
+  - first:
+      213: 3085714720734848544
+    second: Wires
+  - first:
+      213: 8846591592109368106
+    second: Wall
+  - first:
+      213: 2685862554738962431
+    second: Floors
+  - first:
+      213: 2903321419368080066
+    second: Cielings
+  - first:
+      213: 7485459900584560330
+    second: Roof
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -41,7 +59,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -101,7 +119,133 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Hall
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 87
+        width: 228
+        height: 50
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9741a52962104e2b0800000000000000
+      internalID: -5556314775092587399
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wires
+      rect:
+        serializedVersion: 2
+        x: 228
+        y: 148
+        width: 171
+        height: 42
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 026289f8039a2da20800000000000000
+      internalID: 3085714720734848544
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Wall
+      rect:
+        serializedVersion: 2
+        x: 229
+        y: 57
+        width: 105
+        height: 89
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a23e2a88e2865ca70800000000000000
+      internalID: 8846591592109368106
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Floors
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 43
+        width: 224
+        height: 41
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fff2db263c9164520800000000000000
+      internalID: 2685862554738962431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Cielings
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 137
+        width: 222
+        height: 22
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2c2a73ec27baa4820800000000000000
+      internalID: 2903321419368080066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Roof
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 160
+        width: 224
+        height: 65
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ac606c2be12b1e760800000000000000
+      internalID: 7485459900584560330
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []

@@ -70,6 +70,7 @@ public class GameManager : MonoBehaviour
         Score += points;
         playerScoreText.text = Score.ToString();
     }
+
     public void UpdateLives()
     {
         if (Lives != 0)
