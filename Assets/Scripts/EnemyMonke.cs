@@ -11,10 +11,9 @@ public class EnemyMonke : MonoBehaviour
     private Material matDefault;
     private SpriteRenderer sr;
     private UnityEngine.Object explosionRef;
-    private Animator animator;
     public float jumpHeight;
     public Transform GroundCheck;
-    bool isGrounded,FacingLeft = true;
+    bool FacingLeft = true;
     private Rigidbody2D rb2d;
     public float jumpForceX = 2f;
     public float jumpForceY = 4f;
@@ -29,7 +28,6 @@ public class EnemyMonke : MonoBehaviour
         sr = GetComponent<SpriteRenderer>();
         matDefault = sr.material;
         explosionRef = Resources.Load("Explosion");
-        animator = GetComponent<Animator>();
         rb2d = GetComponent<Rigidbody2D>();
     }
 

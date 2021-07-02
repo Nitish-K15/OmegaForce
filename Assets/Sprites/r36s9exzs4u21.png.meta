@@ -1,13 +1,7 @@
 fileFormatVersion: 2
-guid: f96e50bcc2323c94baaeb76fc38a55bf
+guid: 4ffeee81c69449141a80d668a07e2142
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: 2687057441370610899
-    second: Platform
-  - first:
-      213: 4931254059137375146
-    second: Wall
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -47,7 +41,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 2
+  spriteMode: 1
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -107,49 +101,7 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites:
-    - serializedVersion: 2
-      name: Platform
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 0
-        width: 1520
-        height: 214
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3dc17fb91885a4520800000000000000
-      internalID: 2687057441370610899
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Wall
-      rect:
-        serializedVersion: 2
-        x: 1512
-        y: 0
-        width: 302
-        height: 398
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: aab161c90755f6440800000000000000
-      internalID: 4931254059137375146
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
+    sprites: []
     outline: []
     physicsShape: []
     bones: []

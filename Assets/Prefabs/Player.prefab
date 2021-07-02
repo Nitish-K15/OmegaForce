@@ -219,6 +219,7 @@ MonoBehaviour:
   Shoot: {fileID: 8300000, guid: df5de343fabe1214ab92db6823bca22d, type: 3}
   Hit: {fileID: 8300000, guid: ac340d419f40c6e4cafbfaec923f6625, type: 3}
   Explode: {fileID: 8300000, guid: 1d70d4021383c1c479fe3f6ab23700dd, type: 3}
+  End: {fileID: 8300000, guid: d6add12e6c4e3b64d8268e4adebf8a27, type: 3}
 --- !u!114 &31199884237233203
 MonoBehaviour:
   m_ObjectHideFlags: 0

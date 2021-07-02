@@ -31,6 +31,9 @@ public class MainMenu : MonoBehaviour
     }
     public void Play()
     {
+        GameManager.FirstTimee = true;
+        GameManager.Instance.Lives = 3;
+        GameManager.Instance.Score = 0;
         SceneManager.LoadScene("Level_1");
     }
 

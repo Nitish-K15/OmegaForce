@@ -6,8 +6,9 @@ using UnityEngine;
 public class EnemySpawner : MonoBehaviour
 {
     public GameObject Enemy;
-    private Vector3 screenBounds;
+    public Vector3 screenBounds;
     float timer = 3f;
+
     void Update()
     {
         if (!Enemy)
@@ -15,7 +16,7 @@ public class EnemySpawner : MonoBehaviour
         screenBounds = Camera.main.ScreenToWorldPoint(new Vector3(Screen.width, Screen.height, Camera.main.transform.position.z));
         if (transform.position.x < screenBounds.x)
             Enemy.SetActive(true);
-       else
+       if(screenBounds.x-Enemy.transform.position.x > 6f)
         {
             timer -= Time.deltaTime;
             if (timer <= 0)

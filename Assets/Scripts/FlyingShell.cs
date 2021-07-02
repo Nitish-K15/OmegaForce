@@ -29,7 +29,7 @@ public class FlyingShell : MonoBehaviour
         //StartCoroutine(Attack());
     }
 
-    public void Spawn()
+    private void OnEnable()
     {
         StartCoroutine(Attack());
     }

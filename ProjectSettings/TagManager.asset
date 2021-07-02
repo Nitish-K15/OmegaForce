@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Bullet
   - Checkpoint
+  - Level3
+  - End
   layers:
   - Default
   - TransparentFX

@@ -15,15 +15,15 @@ public class PlayerWeaponManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(Input.GetKeyDown(KeyCode.Alpha1))
+        if(Input.GetKeyDown(KeyCode.Alpha1) && GameManager.LevelsCleared >= 1)
         {
             SetWeapon(1);
         }
-        else if(Input.GetKeyDown(KeyCode.Alpha2))
+        else if(Input.GetKeyDown(KeyCode.Alpha2) && GameManager.LevelsCleared >= 2)
         {
             SetWeapon(2);
         }
-        else if(Input.GetKeyDown(KeyCode.Alpha3))
+        else if(Input.GetKeyDown(KeyCode.Alpha3) && GameManager.LevelsCleared >= 3)
         {
             SetWeapon(3);
         }

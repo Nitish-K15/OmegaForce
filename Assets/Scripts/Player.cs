@@ -15,22 +15,27 @@ public class Player : MonoBehaviour
     [SerializeField]
     Transform GroundCheck,GroundCheckL,GroundCheckR,BulletSpawnPosL,BulletSpawnPosR;
     public GameObject bulletref;
-    private bool isShooting, FacingLeft,isInvincible,isTakingDamage;
+    public bool isShooting, FacingLeft,isInvincible,isTakingDamage;
     public bool DamageSideRight;
     public float PlayerSpeed = 1.6f, PlayerJump = 4;
     public int currentHealth;
     public int maxHealth = 28;
     public Image HealthBar;
     private UnityEngine.Object explosionRef;
-    public AudioClip Jump, Shoot, Hit, Explode;
+    public AudioClip Jump, Shoot, Hit, Explode,End;
     private int currentLevel;
-    private void OnEnable()
+    private void Awake()
     {
-        currentHealth = maxHealth;
+        currentHealth = maxHealth; ;
+    }
+    private void OnEnable()
+    { 
         transform.position = GameManager.Instance.Checkpoint;
     }
     void Start()
     {
+        currentHealth = maxHealth;
+        transform.position = GameManager.Instance.Checkpoint;
         explosionRef = Resources.Load("Explosion");
         animator = GetComponent<Animator>();
         rb2D = GetComponent<Rigidbody2D>();
@@ -38,7 +43,7 @@ public class Player : MonoBehaviour
         HealthBar = GameObject.Find("HealthBar").GetComponent<Image>();
         currentLevel = SceneManager.GetActiveScene().buildIndex;
     }
-    private void Update()
+    private void FixedUpdate()
     {
         if (Physics2D.Linecast(transform.position, GroundCheck.position, 1 << LayerMask.NameToLayer("Ground"))||
             Physics2D.Linecast(transform.position, GroundCheckL.position, 1 << LayerMask.NameToLayer("Ground"))||
@@ -57,7 +62,7 @@ public class Player : MonoBehaviour
         if(isTakingDamage)
         {
             animator.Play("Hit");
-            Invoke("StopDamageAnimation", 1f);
+            Invoke("StopDamageAnimation", 0.5f);
             return;
         }
         if(Input.GetKey("f"))
@@ -148,20 +153,22 @@ public class Player : MonoBehaviour
 
     public void TakingDamage(int damage)
     {
-        SoundManager.Instance.Play(Hit);
-        currentHealth -= damage;
-        //gameObject.layer = 8;
-        HealthBar.fillAmount = (float)currentHealth / (float)maxHealth;
-        if (currentHealth <= 0)
+        if (!isInvincible)
         {
-            animator.enabled = false;
-            spriteRenderer.sprite = Defeat;
-            rb2D.velocity = Vector2.zero;
-            Invoke("KillSelf", 0.5f);
-        }
-        else
-        {
-            StartDamageAnimation();
+            SoundManager.Instance.Play(Hit);
+            currentHealth -= damage;
+            HealthBar.fillAmount = (float)currentHealth / (float)maxHealth;
+            if (currentHealth <= 0)
+            {
+                animator.enabled = false;
+                spriteRenderer.sprite = Defeat;
+                rb2D.velocity = Vector2.zero;
+                Invoke("KillSelf", 0.5f);
+            }
+            else
+            {
+                StartDamageAnimation();
+            }
         }
     }
 
@@ -195,16 +202,56 @@ public class Player : MonoBehaviour
         explosion.transform.position = new Vector3(transform.position.x, transform.position.y + .3f, transform.position.z);
         GameManager.Instance.UpdateLives();
     }
-        private void StopDamageAnimation()
+    private void StopDamageAnimation()
     {
         isTakingDamage = false;
+        StartCoroutine(Invincibility());
+    }
+    IEnumerator Invincibility()
+    {
+        float flashDelay = 0.0833f;
+        for (int i = 0; i < 10; i++)
+        {
+            spriteRenderer.color = Color.clear;
+            yield return new WaitForSeconds(flashDelay);
+            spriteRenderer.color = Color.white;
+            yield return new WaitForSeconds(flashDelay);
+        }
         isInvincible = false;
     }
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if(collision.CompareTag("Checkpoint"))
+        if (collision.CompareTag("Checkpoint"))
         {
             GameManager.Instance.UpdateCheckpoint(collision.gameObject.transform.position);
         }
+
+        if(collision.CompareTag("Finish"))
+        {
+            Destroy(collision.gameObject);
+            StartCoroutine(LevelEnd(5));
+        }
+        if(collision.CompareTag("EditorOnly"))
+        {
+            KillSelf();
+        }
+        if (collision.CompareTag("Level3"))
+        {
+            Destroy(collision.gameObject);
+            StartCoroutine(LevelEnd(6));
+        }
+
+    }
+
+    IEnumerator LevelEnd(int i)
+    {
+        SoundManager.Instance.StopMusic();
+        Time.timeScale = 0;
+        SoundManager.Instance.Play(End);
+        yield return new WaitForSecondsRealtime(8f);
+        Time.timeScale = 1;
+        ClearLevel();
+        SceneManager.LoadScene(i);
     }
 }

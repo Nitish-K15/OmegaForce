@@ -19,7 +19,7 @@ public class ShellMan : MonoBehaviour
     {
         gameObject.SetActive(false);
     }
-    public void Spawn()
+    public void OnEnable()
     {
         StartCoroutine(Attack());
     }

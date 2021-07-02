@@ -23,12 +23,16 @@ public class LevelSelect : MonoBehaviour
 
     public void LoadLevel(int Levelindex)
     {
+        GameManager.FirstTimee = true;
+        GameManager.Instance.Lives = 3;
+        GameManager.Instance.Score = 0;
         SceneManager.LoadScene(Levelindex);
     }
 
     public void ResetLevels()
     {
         PlayerPrefs.DeleteKey("LevelsUnlocked");
+        GameManager.LevelsCleared = 1;
         Start();
     }
 }

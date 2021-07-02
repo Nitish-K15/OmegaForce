@@ -20,4 +20,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Level_Select.unity
     guid: 06cdc844a34c1ad458d2b7d03d8440bd
+  - enabled: 1
+    path: Assets/Scenes/New_Weapon_Screen.unity
+    guid: a8b9588406218b54a804df580a42c948
+  - enabled: 1
+    path: Assets/Scenes/New_Weapon_2.unity
+    guid: 63c98c9a1fc7638428c7cd5dc1e8790d
   m_configObjects: {}

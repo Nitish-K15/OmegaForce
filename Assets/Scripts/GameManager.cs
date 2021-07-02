@@ -2,19 +2,24 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Threading;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
+using UnityEngine.UIElements;
 
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance = null;
-    int Score,Lives=3;
+    public static bool FirstTimee = true;
+    public static int LevelsCleared = 1;
+    public int Score,Lives=3;
     Text playerScoreText,screenMessageText,LiveText;
     public GameObject playerRef;
     //public Transform LevelStart;
     [SerializeField]
     public Vector2 Checkpoint;
+    private Vector2 Start;
     Player player;
 
     private void Awake()
@@ -49,9 +54,15 @@ public class GameManager : MonoBehaviour
         playerScoreText = GameObject.Find("Score").GetComponent<Text>();
         LiveText = GameObject.Find("Lives").GetComponent<Text>();
         SoundManager.Instance.MusicSource.Play();
+        Start = GameObject.Find("Start").transform.position;
         screenMessageText = GameObject.Find("ScreenMessage").GetComponent<Text>();
         playerScoreText.text = Score.ToString();
         LiveText.text = "Lives x" + Lives.ToString();
+        if(FirstTimee == true)
+        {
+            Checkpoint = Start;
+            FirstTimee = false;
+        }
         StartCoroutine(CountdownEvent(3));
         player.gameObject.SetActive(true);
     }
@@ -73,10 +84,17 @@ public class GameManager : MonoBehaviour
 
     public void UpdateLives()
     {
-        if (Lives != 0)
+        if (Lives > 0)
         {
             Lives -= 1;
             LiveText.text = "Lives x" + Lives.ToString();
+            Invoke("Reload", 1f);
+        }
+        else
+        {
+            Lives = 3;
+            Score = 0;
+            Checkpoint = Start;
             Invoke("Reload", 1f);
         }
     }

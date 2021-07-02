@@ -4,19 +4,19 @@ using UnityEngine;
 
 public class CameraFollow : MonoBehaviour
 { 
-    GameObject Player;
+    public GameObject Player;
     [SerializeField]
     float timeOffset;
     [SerializeField]
     Vector2 posOffset;
     [SerializeField]
     float upperlimit, lowerlimit, leftlimit, rightlimit;
+    private void Start()
+    {
+        transform.position = new Vector3(Player.transform.position.x,Player.transform.position.y,-2);
+    }
     private void Update()
     {
-        if (!Player)
-        {
-            Player = GameObject.FindGameObjectWithTag("Player");
-        }
         Vector3 startPos = transform.position;
         Vector3 endPos = Player.transform.position;
         endPos.x += posOffset.x;

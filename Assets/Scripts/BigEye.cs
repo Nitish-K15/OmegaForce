@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class BigEye : MonoBehaviour
@@ -17,6 +18,7 @@ public class BigEye : MonoBehaviour
     private Rigidbody2D rb2d;
     public LayerMask ground;
     [SerializeField] AudioClip Exploding;
+    public GameObject Ender;
     private void Awake()
     {
         gameObject.SetActive(false);
@@ -32,7 +34,7 @@ public class BigEye : MonoBehaviour
         //StartCoroutine(Attack());
     }
 
-    public void Spawn()
+    private void OnEnable()
     {
         StartCoroutine(Attack());
     }
@@ -114,6 +116,7 @@ public class BigEye : MonoBehaviour
         SoundManager.Instance.Play(Exploding);
         GameObject explosion = (GameObject)Instantiate(explosionRef);
         explosion.transform.position = new Vector3(transform.position.x, transform.position.y + .3f, transform.position.z);
+        Ender.SetActive(true);
         Destroy(gameObject);
     }
 }
