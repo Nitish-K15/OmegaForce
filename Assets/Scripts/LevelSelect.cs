@@ -28,7 +28,10 @@ public class LevelSelect : MonoBehaviour
         GameManager.Instance.Score = 0;
         SceneManager.LoadScene(Levelindex);
     }
-
+    public void BackButton()
+    {
+        SceneManager.LoadScene("Title_Screen");
+    }
     public void ResetLevels()
     {
         PlayerPrefs.DeleteKey("LevelsUnlocked");

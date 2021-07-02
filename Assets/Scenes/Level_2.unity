@@ -354,7 +354,7 @@ GameObject:
   - component: {fileID: 203100908}
   m_Layer: 0
   m_Name: Pit (1)
-  m_TagString: EditorOnly
+  m_TagString: Pit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2205,11 +2205,11 @@ BoxCollider2D:
   m_GameObject: {fileID: 712865189}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: d8cfa1bfc5ec1644084776be3d493696, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.27518857, y: 0}
+  m_Offset: {x: 0.27518857, y: 0.020282447}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -2220,7 +2220,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.19299507, y: 0.41}
+  m_Size: {x: 0.19299507, y: 0.36943513}
   m_EdgeRadius: 0
 --- !u!212 &712865192
 SpriteRenderer:
@@ -3771,7 +3771,7 @@ GameObject:
   - component: {fileID: 1207814442}
   m_Layer: 0
   m_Name: Pit
-  m_TagString: EditorOnly
+  m_TagString: Pit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -4081,7 +4081,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1321117774}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: d8cfa1bfc5ec1644084776be3d493696, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -4557,7 +4557,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1499304703}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: d8cfa1bfc5ec1644084776be3d493696, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -5035,7 +5035,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1573819215}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: d8cfa1bfc5ec1644084776be3d493696, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -6909,7 +6909,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 1990409903}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: d8cfa1bfc5ec1644084776be3d493696, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0

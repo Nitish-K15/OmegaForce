@@ -8,6 +8,7 @@ TagManager:
   - Checkpoint
   - Level3
   - End
+  - Pit
   layers:
   - Default
   - TransparentFX

@@ -232,7 +232,7 @@ public class Player : MonoBehaviour
             Destroy(collision.gameObject);
             StartCoroutine(LevelEnd(5));
         }
-        if(collision.CompareTag("EditorOnly"))
+        if(collision.CompareTag("Pit"))
         {
             KillSelf();
         }
@@ -240,6 +240,12 @@ public class Player : MonoBehaviour
         {
             Destroy(collision.gameObject);
             StartCoroutine(LevelEnd(6));
+        }
+
+        if(collision.CompareTag("End"))
+        {
+            Destroy(collision.gameObject);
+            StartCoroutine(LevelEnd(7));
         }
 
     }

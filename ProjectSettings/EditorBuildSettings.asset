@@ -26,4 +26,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/New_Weapon_2.unity
     guid: 63c98c9a1fc7638428c7cd5dc1e8790d
+  - enabled: 1
+    path: Assets/Scenes/Credits.unity
+    guid: 059febdd7a7ced54586e49fd29fe60b5
   m_configObjects: {}

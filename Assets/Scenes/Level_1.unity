@@ -4395,7 +4395,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4476498182047088484, guid: 7b95e6d9d26cbf04d9de4ff2642bbdc4, type: 3}
       propertyPath: damage
-      value: 28
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 4476498182047088489, guid: 7b95e6d9d26cbf04d9de4ff2642bbdc4, type: 3}
       propertyPath: m_RootOrder
@@ -5456,7 +5456,7 @@ GameObject:
   - component: {fileID: 1954813320}
   m_Layer: 0
   m_Name: Pit
-  m_TagString: EditorOnly
+  m_TagString: Pit
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

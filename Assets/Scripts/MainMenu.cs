@@ -7,7 +7,7 @@ using UnityEngine;
 public class MainMenu : MonoBehaviour
 {
     public GameObject Menu,Controls;
-    private void Start()
+    void Start()
     {
         Menu.SetActive(false);
         Controls.SetActive(false);
@@ -34,7 +34,7 @@ public class MainMenu : MonoBehaviour
         GameManager.FirstTimee = true;
         GameManager.Instance.Lives = 3;
         GameManager.Instance.Score = 0;
-        SceneManager.LoadScene("Level_1");
+        SceneManager.LoadScene(1);
     }
 
     public void LevelSelect()
@@ -42,6 +42,10 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene("Level_Select");
     }
 
+    public void Credits()
+    {
+        SceneManager.LoadScene("Credits");
+    }
     public void ExitGame()
     {
         Application.Quit();
