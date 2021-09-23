@@ -43,7 +43,7 @@ public class EnemyMonke : MonoBehaviour
             if (FacingLeft)
             {
                 rb2d.velocity = Vector2.zero;
-                rb2d.AddForce(new Vector2(2f, 5f), ForceMode2D.Impulse);
+                rb2d.velocity = new Vector2(2f, 5f);
                 sr.flipX = true;
                 FacingLeft = false;
                 yield return new WaitForSeconds(1.5f);
@@ -51,7 +51,7 @@ public class EnemyMonke : MonoBehaviour
             if (!FacingLeft)
             {
                 rb2d.velocity = Vector2.zero;
-                rb2d.AddForce(new Vector2(-2f, 5f), ForceMode2D.Impulse);
+                rb2d.velocity = new Vector2(-2f, 5f);
                 sr.flipX = false;
                 FacingLeft = true;
             }
